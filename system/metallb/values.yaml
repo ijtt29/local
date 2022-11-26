@@ -1,0 +1,35 @@
+controller:
+  enabled: true
+  # -- Controller log level. Must be one of: `all`, `debug`, `info`, `warn`, `error` or `none`
+  logLevel: info
+  # command: /controller
+  # webhookMode: enabled
+  image:
+    repository: quay.io/metallb/controller
+    tag:
+    pullPolicy:
+  strategy:
+    type: RollingUpdate
+    
+speaker:
+  enabled: true
+  # command: /speaker
+  # -- Speaker log level. Must be one of: `all`, `debug`, `info`, `warn`, `error` or `none`
+  logLevel: info
+  tolerateMaster: true
+  memberlist:
+    enabled: true
+    mlBindPort: 7946
+    mlSecretKeyPath: "/etc/ml_secret_key"
+  image:
+    repository: quay.io/metallb/speaker
+    tag:
+    pullPolicy:
+  updateStrategy:
+    type: RollingUpdate
+  frr:
+    enabled: false
+
+crds:
+  enabled: true
+  validationFailurePolicy: Fail
